@@ -20,7 +20,6 @@ public class User {
     private String email;
     private boolean confirmed;
 
-    @Transient
     private String confirmationCode;
 
     public User(UserRequestDto userRequestDto) {

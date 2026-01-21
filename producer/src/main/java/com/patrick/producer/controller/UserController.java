@@ -21,8 +21,8 @@ public class UserController {
     }
 
     @PostMapping("/{id}/confirm/{code}")
-    public ResponseEntity<UserResponseDto> create(@PathVariable("id") Long id, @PathVariable("code") String code) {
-        UserResponseDto userResponseDto = userService.confirmationCode(id, code);
+    public ResponseEntity<UserResponseDto> confirmUser(@PathVariable("id") Long id, @PathVariable("code") String code) {
+        UserResponseDto userResponseDto = userService.confirmUser(id, code);
         return ResponseEntity.ok(userResponseDto);
     }
 }

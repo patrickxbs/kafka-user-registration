@@ -8,7 +8,6 @@ import com.patrick.producer.event.UserConfirmedEvent;
 import com.patrick.producer.mapper.UserMapper;
 import com.patrick.producer.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Autowired
-    private KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponseDto create(UserRequestDto userRequestDto) {
         User user = userMapper.toUser(userRequestDto);
@@ -36,7 +33,7 @@ public class UserService {
         return userMapper.toResponse(user);
     }
 
-    public UserResponseDto confirmationCode(Long id, String code) {
+    public UserResponseDto confirmUser(Long id, String code) {
         User user = userRepository.findById(id).orElseThrow();
 
         if (!user.getConfirmationCode().equals(code)) throw new RuntimeException("Code invalid");
